@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Alert,
   View,
   Text,
   StyleSheet,
@@ -13,6 +14,7 @@ import {
 } from 'react-native';
 import { colors, spacing, typography, borderRadius, shadows } from '../theme/theme';
 import Input from '../components/Input';
+import { validateLogin } from '../utils/validation';
 
 interface LoginScreenProps {
   navigation: any;
@@ -44,8 +46,9 @@ const LoginScreen = ({ navigation }: LoginScreenProps) => {
   }, []);
   
   const handleLogin = () => {
-    if (email.trim() === '' || password.trim() === '') {
-      // Show validation error
+    const result = validateLogin(email, password);
+    if (!result.valid) {
+      Alert.alert('Connexion', result.error);
       return;
     }
     

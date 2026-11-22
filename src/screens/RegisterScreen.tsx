@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Alert,
   View,
   Text,
   StyleSheet,
@@ -13,6 +14,7 @@ import {
 import { colors, spacing, typography, borderRadius, shadows } from '../theme/theme';
 import Header from '../components/Header';
 import Input from '../components/Input';
+import { validateRegistration } from '../utils/validation';
 
 interface RegisterScreenProps {
   navigation: any;
@@ -38,22 +40,12 @@ const RegisterScreen = ({ navigation }: RegisterScreenProps) => {
   }, []);
   
   const handleRegister = () => {
-    // Validate inputs
-    if (
-      fullName.trim() === '' || 
-      email.trim() === '' || 
-      password.trim() === '' ||
-      confirmPassword.trim() === ''
-    ) {
-      // Show validation error
+    const result = validateRegistration({ fullName, email, password, confirmPassword });
+    if (!result.valid) {
+      Alert.alert('Inscription', result.error);
       return;
     }
-    
-    if (password !== confirmPassword) {
-      // Show password mismatch error
-      return;
-    }
-    
+
     setIsLoading(true);
     
     // Simulate API call
