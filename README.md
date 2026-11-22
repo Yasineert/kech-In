@@ -1,84 +1,70 @@
-# Save Panier Mobile App
+# Forsa+ — Internship Search Mobile App
 
-This repo is for the mobile app UI only. It's under development and please only merge changes to the development branch.
+[![CI](https://github.com/Yasineert/kech-In/actions/workflows/ci.yml/badge.svg)](https://github.com/Yasineert/kech-In/actions/workflows/ci.yml)
+![React Native](https://img.shields.io/badge/React%20Native-0.73-20232A?logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS-lightgrey)
 
+Cross-platform mobile application that helps students find, save and apply to internships. Built with React Native and TypeScript.
 
-# Getting Started
+> Status: front-end prototype. Authentication and internship data are mocked; no backend is connected yet.
 
-Reference video: https://www.youtube.com/watch?v=W1Co2M-gsQE&t=16220s
+## Features
 
+| Area | Screens |
+|---|---|
+| Onboarding & auth | Onboarding, Login, Register (validated forms) |
+| Discovery | Home feed, full-text search, filters (sector, location, duration, contract type), internship details |
+| Applications | Apply form, resume preview, confirmation, "My applications" tracking |
+| Personal space | Saved internships, profile, profile editing |
 
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+## Tech stack
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+- **React Native 0.73** with **TypeScript**
+- **React Navigation** (native stack + bottom tabs)
+- **Redux Toolkit** and **Zustand** for state
+- **Axios** for HTTP, **AsyncStorage** and **Keychain** for local and secure storage
+- **Jest** for unit tests, **ESLint** and **Prettier** for code quality
 
-## Step 1: Start the Metro Server
+## Getting started
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start the Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+**Requirements:** Node.js 18+, a configured [React Native environment](https://reactnative.dev/docs/set-up-your-environment) (Android Studio and/or Xcode), CocoaPods for iOS.
 
 ```bash
-# using npm
-npm run android
+git clone https://github.com/Yasineert/kech-In.git
+cd kech-In
+npm install --legacy-peer-deps
 
-# OR using Yarn
-yarn android
+npm start            # Metro bundler
+npm run android      # in a second terminal
+npm run ios          # macOS only (run `cd ios && pod install` first)
 ```
 
-### For iOS
+## Tests
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+npm test
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+Form validation (`src/utils/validation.ts`) is covered by unit tests: e-mail format, password strength (8+ characters with letters and digits), required fields and password confirmation. GitHub Actions runs the tests and a Gitleaks secret scan on every push.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Project structure
 
-## Step 3: Modifying the App
+```
+src/
+├── components/   Reusable UI (Button, Card, Input, SearchBar, FilterModal, …)
+├── navigation/   Stack and tab navigators
+├── screens/      One file per screen
+├── theme/        Colors, spacing, typography
+└── utils/        Pure helpers (validation) and their tests
+```
 
-Now that you have successfully run the app, let's modify it.
+## Security
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+- No secrets are stored in the repository. API keys (for example Google Maps) must be provided locally and never committed.
+- Release builds must be signed with a private keystore kept outside the repository; the committed `debug.keystore` is the standard React Native debug key.
+- See [SECURITY.md](SECURITY.md) to report a vulnerability.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## Team
 
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More about React Native
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Developed as a team project. Initial UI by [Hamza Aglagal](https://github.com/Hamza-Aglagal).
